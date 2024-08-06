@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { TaskFormComponent } from './task-form/task-form.component';
 
 @Component({
   selector: 'app-root',
+  template: `
+    <div class="container">
+      <h1>Task Organizer</h1>
+      <app-task-form></app-task-form>
+      <app-todo-list></app-todo-list>
+    </div>
+  `,
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [ TaskFormComponent, TodoListComponent],
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'list-todos';
-}
+export class AppComponent {}
