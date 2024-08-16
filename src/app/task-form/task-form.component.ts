@@ -17,13 +17,14 @@ export class TaskFormComponent {
   task: Task = {
     id: 0,
     title: '',
-    completed: false
+    description: '',
+    completed: false,
   };
 
   constructor(private taskService: TaskService) {}
 
   addTask() {
-    this.task.id = Date.now(); // Simple ID generation
+    this.task.id = Date.now();
     this.taskService.addTask(this.task);
     this.resetForm();
   }
@@ -32,6 +33,7 @@ export class TaskFormComponent {
     this.task = {
       id: 0,
       title: '',
+      description: '',
       completed: false
     };
   }

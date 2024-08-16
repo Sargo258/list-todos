@@ -1,5 +1,13 @@
-<form (ngSubmit)="addTask()" class="flex flex-col space-y-4">
-    <input type="text" [(ngModel)]="task.title" name="title" placeholder="Title" required class="p-2 border rounded">
-    <button type="submit" class="p-2 bg-blue-500 text-white rounded">Add Task</button>
-  </form>
-  
+<form (ngSubmit)="addTask()" class="flex flex-col items-center justify-center p-8 bg-white shadow-xl rounded-lg max-w-md mx-auto mt-8">
+  <h2 class="text-2xl font-semibold mb-6 text-gray-800">Add New Task</h2>
+  <div class="flex flex-col space-y-4 w-full">
+    <input type="text" [(ngModel)]="task.title" name="title" placeholder="Enter task title" required 
+           class="p-4 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out w-full">
+           <textarea [(ngModel)]="task.description" name="description" placeholder="Enter task description" rows="4"
+           class="p-4 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out w-full"></textarea>
+    <button type="submit" 
+            class="p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg transition-all duration-300 ease-in-out w-full">
+      Add Task
+    </button>
+  </div>
+</form>

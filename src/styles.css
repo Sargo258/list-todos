@@ -2,3 +2,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* styles.css o styles.scss */
+
+body {
+    font-family: 'Inter', sans-serif; /* Asegúrate de que la fuente esté incluida en tu proyecto */
+  }
+  
+  button {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  input:focus, button:focus {
+    outline: none;
+  }
+  

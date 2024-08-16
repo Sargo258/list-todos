@@ -6,7 +6,6 @@ import { TaskFormComponent } from './task-form/task-form.component';
   selector: 'app-root',
   template: `
     <div class="container">
-      <h1>Task Organizer</h1>
       <app-task-form></app-task-form>
       <app-todo-list></app-todo-list>
     </div>
