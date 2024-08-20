@@ -18,6 +18,7 @@ export class TaskFormComponent {
     id: 0,
     title: '',
     description: '',
+    date: new Date(),
     completed: false,
   };
 
@@ -34,6 +35,7 @@ export class TaskFormComponent {
       id: 0,
       title: '',
       description: '',
+      date: new Date(),
       completed: false
     };
   }
