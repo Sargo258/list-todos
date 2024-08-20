@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class TodoListComponent {
   tasks = this.taskService.tasks$;
   editMode: { [key: number]: boolean } = {};
+  showMore: { [key: number]: boolean } = {};
   editedTitle: { [key: number]: string } = {};
   editedDescription: { [key: number]: string } = {};
   editedDate: { [key: number]: Date } = {};
@@ -50,12 +51,16 @@ export class TodoListComponent {
     this.taskService.editTask(taskId, {
       title: this.editedTitle[taskId],
       description: this.editedDescription[taskId],
-      date: this.editedDate[taskId], 
+      date: this.editedDate[taskId],
     });
     this.toggleEditMode(taskId, '', '', new Date()); // Reset edit mode after saving
   }
 
   cancelEdit(taskId: number) {
     this.toggleEditMode(taskId, '', '', new Date()); // Reset edit mode
+  }
+
+  toggleShowMore(taskId: number) {
+    this.showMore[taskId] = !this.showMore[taskId];
   }
 }

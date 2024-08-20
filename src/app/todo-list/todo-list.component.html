@@ -1,43 +1,50 @@
 <div class="container mx-auto p-6 max-w-4xl">
   <!-- Lista de tareas -->
   <div class="space-y-4">
-    <div *ngFor="let task of tasks()" class="flex items-start justify-between p-4 bg-white shadow-lg rounded-lg mb-4 transition-transform transform hover:scale-105">
-      <div class="flex-1">
+    <div *ngFor="let task of tasks()" class="flex flex-col p-4 bg-white shadow-lg rounded-lg mb-4 transition-transform transform hover:scale-105">
+      <div class="flex items-start justify-between">
         <input type="checkbox" [checked]="task.completed" (change)="toggleTaskCompletion(task.id)" class="mr-2 h-5 w-5 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
-        <span *ngIf="!editMode[task.id]" [class.line-through]="task.completed" class="text-gray-800 text-lg font-medium transition-all duration-300">{{ task.title }}</span>
-        
-        <!-- Description Section -->
-        <div *ngIf="!editMode[task.id]" class="mt-2">
+        <span class="text-gray-800 text-lg font-medium">{{ task.title }}</span>
+        <div class="flex space-x-2">
+          <button *ngIf="!editMode[task.id]" (click)="toggleEditMode(task.id, task.title, task.description, task.date)" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Edit
+          </button>
+          <button (click)="deleteTask(task.id)" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+            Delete
+          </button>
+          <button *ngIf="!editMode[task.id]" (click)="toggleShowMore(task.id)" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
+            See More
+          </button>
+        </div>
+      </div>
+
+      <!-- Mostrar descripción y fecha si 'showMore' es true -->
+      <div *ngIf="showMore[task.id]" class="mt-4">
+        <div class="mt-2">
           <p class="text-gray-600 text-base leading-relaxed break-words">
             {{ task.description }}
           </p>
         </div>
-
-        <!-- Fecha de la tarea -->
-        <div *ngIf="!editMode[task.id]" class="mt-2">
+        <div class="mt-2">
           <p class="text-gray-500 text-sm">
             {{ task.date | date: 'shortDate' }} <!-- Formato de fecha corto -->
           </p>
         </div>
-
-        <!-- Edit Mode -->
-        <input *ngIf="editMode[task.id]" [(ngModel)]="editedTitle[task.id]" class="border border-gray-300 rounded p-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full mt-2" placeholder="Edit title">
-        <textarea *ngIf="editMode[task.id]" [(ngModel)]="editedDescription[task.id]" class="border border-gray-300 rounded p-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2 w-full" placeholder="Edit description"></textarea>
-        <input *ngIf="editMode[task.id]" [(ngModel)]="editedDate[task.id]" type="date" class="border border-gray-300 rounded p-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2 w-full">
       </div>
-      <div class="flex items-center space-x-2">
-        <button *ngIf="!editMode[task.id]" (click)="toggleEditMode(task.id, task.title, task.description, task.date)" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-          Edit
-        </button>
-        <button *ngIf="editMode[task.id]" (click)="saveEdit(task.id)" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-          Save
-        </button>
-        <button *ngIf="editMode[task.id]" (click)="cancelEdit(task.id)" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
-          Cancel
-        </button>
-        <button (click)="deleteTask(task.id)" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-          Delete
-        </button>
+
+      <!-- Modo de edición -->
+      <div *ngIf="editMode[task.id]" class="mt-4">
+        <input [(ngModel)]="editedTitle[task.id]" class="border border-gray-300 rounded-lg p-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full mb-2" placeholder="Edit title">
+        <textarea [(ngModel)]="editedDescription[task.id]" class="border border-gray-300 rounded-lg p-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full mb-2" placeholder="Edit description"></textarea>
+        <input [(ngModel)]="editedDate[task.id]" type="date" class="border border-gray-300 rounded-lg p-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full mb-2">
+        <div class="flex space-x-2 mt-4">
+          <button (click)="saveEdit(task.id)" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+            Save
+          </button>
+          <button (click)="cancelEdit(task.id)" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   </div>
